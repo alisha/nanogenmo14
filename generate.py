@@ -79,20 +79,20 @@ def genChapter(wordMap, chapter, numWords):
     # start chapter
     currentDate = date.today() + timedelta(chapter - 1)
     book = open('novel.md', 'a')
-    book.write("\n\n\n## Chapter " + `chapter` + "\n" + currentDate.strftime("%A, %B %d, %Y") + "\n\n**" + characters[0] + ":** My dear " + characters[1] + ", how are you?\n")
+    book.write("\n\n\n## Chapter " + `chapter` + "\n" + currentDate.strftime("%A, %B %d, %Y") + "\n\n**" + characters[1] + ":** My dear " + characters[0] + ", how are you?\n")
     words = 13
 
     # generate story
     characterIndex = 0
 
-    for x in xrange(0,11):
+    for x in xrange(0,12):
         line = genLine(wordMap)
-        book.write("**" + characters[characterIndex] + ":** " + line[0] + "\n")
+        book.write("**" + characters[characterIndex] + ":** " + line[0] + "\n\n")
         characterIndex = (characterIndex+1)%2
         words += line[1]
 
     # end chapter
-    book.write("**" + characters[1] + ":** Until we meet again")
+    book.write("**" + characters[0] + ":** Until we meet again")
     words += 5
     book.close()
     
