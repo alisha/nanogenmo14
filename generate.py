@@ -65,7 +65,7 @@ def genLine(wordMap):
     lastElements = (line[1], line[2])
 
     # stop when the conversation can't go on
-    while lastElements in wordMap.keys():
+    while lastElements in wordMap.keys() and words < 40:
         line.append(wordMap[(lastElements[0], lastElements[1])])
         words += 1
         
@@ -78,8 +78,8 @@ def genLine(wordMap):
 def genChapter(wordMap, chapter, numWords):
     # start chapter
     currentDate = date.today() + timedelta(chapter - 1)
-    book = open('novel', 'a')
-    book.write("\n\n\nChapter " + `chapter` + "\n" + currentDate.strftime("%A, %B %d, %Y") + "\n\nFlorence: My dear Makena, how are you?\n")
+    book = open('novel.md', 'a')
+    book.write("\n\n\n## Chapter " + `chapter` + "\n" + currentDate.strftime("%A, %B %d, %Y") + "\n\n**" + characters[0] + ":** My dear " + characters[1] + ", how are you?\n")
     words = 13
 
     # generate story
@@ -87,12 +87,12 @@ def genChapter(wordMap, chapter, numWords):
 
     for x in xrange(0,11):
         line = genLine(wordMap)
-        book.write(characters[characterIndex] + ": " + line[0] + "\n")
+        book.write("**" + characters[characterIndex] + ":** " + line[0] + "\n")
         characterIndex = (characterIndex+1)%2
         words += line[1]
 
     # end chapter
-    book.write("Makena: Until we meet again")
+    book.write("**" + characters[1] + ":** Until we meet again")
     words += 5
     book.close()
     
@@ -101,7 +101,7 @@ def genChapter(wordMap, chapter, numWords):
 
 # Generate the novel
 book = open('novel.md', 'w')
-book.write("The Conversations of Florence and Makena\n\nBy Alisha Ukani")
+book.write("# The Conversations of " + characters[0] + " and " + characters[1] + "\n\nBy Alisha Ukani")
 numWords += 9
 book.close()
 
